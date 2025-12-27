@@ -210,15 +210,15 @@ export function ChatUI() {
           headerVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
         style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+          backgroundColor: 'rgba(30, 30, 35, 0.85)',
           backdropFilter: 'blur(20px) saturate(180%)',
           WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
         {/* タブ（フォルダ + 検索履歴） */}
         <div
-          className={`max-w-2xl mx-auto flex overflow-x-auto scrollbar-hide border-t border-gray-100 ${deleteMode ? 'pt-3 pb-1' : ''}`}
+          className={`max-w-2xl mx-auto flex overflow-x-auto scrollbar-hide ${deleteMode ? 'pt-3 pb-1' : ''}`}
           style={{ overflow: deleteMode ? 'visible' : undefined }}
         >
           {/* ブックマーク・フォルダタブ */}
@@ -266,8 +266,8 @@ export function ChatUI() {
                   onMouseLeave={!isBookmark ? handleLongPressEnd : undefined}
                   className={`flex-shrink-0 px-3 py-2.5 text-sm font-medium border-b-2 transition-colors ${
                     isActive
-                      ? 'border-blue-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                      ? 'border-blue-400 text-white'
+                      : 'border-transparent text-gray-400 hover:text-gray-200'
                   } ${deleteMode && !isBookmark ? 'pointer-events-none' : ''}`}
                 >
                   <span className="flex items-center gap-1.5">
@@ -289,7 +289,7 @@ export function ChatUI() {
           {!deleteMode && folders.length < 4 && (
             <button
               onClick={() => setShowCreateFolderModal(true)}
-              className="flex-shrink-0 px-3 py-2.5 text-gray-400 hover:text-gray-600 transition-colors"
+              className="flex-shrink-0 px-3 py-2.5 text-gray-400 hover:text-white transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -341,8 +341,8 @@ export function ChatUI() {
                   onMouseLeave={handleLongPressEnd}
                   className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
                     isActive
-                      ? 'border-primary text-primary'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                      ? 'border-blue-400 text-white'
+                      : 'border-transparent text-gray-400 hover:text-gray-200'
                   } ${deleteMode ? 'pointer-events-none' : ''}`}
                 >
                   {keyword}
@@ -355,7 +355,7 @@ export function ChatUI() {
           {deleteMode && (
             <button
               onClick={() => setDeleteMode(false)}
-              className="flex-shrink-0 px-4 py-2.5 text-primary font-medium text-sm"
+              className="flex-shrink-0 px-4 py-2.5 text-blue-400 font-medium text-sm"
             >
               完了
             </button>
@@ -417,12 +417,12 @@ export function ChatUI() {
             }
             loadQuestions(keyword, activeYears, activeSortOrder, activeHisshuOnly);
           }}
-          className="w-full max-w-sm flex items-center gap-3 px-4 py-2.5 rounded-full"
+          className="w-full max-w-sm flex items-center gap-2 px-4 py-2.5 rounded-full"
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            backgroundColor: 'rgba(30, 30, 35, 0.85)',
             backdropFilter: 'blur(20px) saturate(180%)',
             WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            border: '1px solid rgba(0, 0, 0, 0.06)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
           }}
         >
           <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -432,12 +432,19 @@ export function ChatUI() {
             type="text"
             placeholder=""
             defaultValue={typeof activeFilter === 'string' && activeFilter !== 'favorites' ? activeFilter : ''}
-            className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+            className="flex-1 bg-transparent text-sm text-white placeholder-gray-400 focus:outline-none"
           />
+          {/* 検索ボタン */}
+          <button
+            type="submit"
+            className="px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full hover:bg-blue-600 active:scale-95 transition-all"
+          >
+            検索
+          </button>
           <button
             type="button"
             onClick={() => setShowFilterModal(true)}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-white"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
@@ -1037,42 +1044,35 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
         style={{ backgroundColor: 'rgba(30, 30, 35, 0.95)' }}
         onClick={e => e.stopPropagation()}
       >
-        {/* リフレッシュボタン（右上） */}
-        <button
-          type="button"
-          onClick={() => {
-            onRefresh();
-            onClose();
-          }}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white active:scale-90 transition-all"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-        </button>
-
         <form onSubmit={handleSubmit}>
           {/* 検索入力 */}
           <div className="mb-4">
-            <div className="relative">
+            <div className="relative flex items-center bg-white/10 rounded-2xl focus-within:ring-2 focus-within:ring-white/30">
               <input
                 ref={inputRef}
                 type="text"
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
                 placeholder="例: インプラント 表面処理 / 112B48"
-                className="w-full pl-4 pr-12 py-4 bg-white/10 rounded-2xl text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30"
+                className="flex-1 pl-4 pr-2 py-4 bg-transparent text-base text-white placeholder-gray-400 focus:outline-none"
               />
+              {/* 件数表示（入力欄内の右側） */}
+              <span className={`text-xs font-medium px-3 ${previewCount === 0 ? 'text-red-400' : 'text-gray-400'}`}>
+                {previewCount === 0 ? '該当なし' : `${previewCount.toLocaleString()}問`}
+              </span>
               {keyword && (
-                <button type="button" onClick={() => setKeyword('')} className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 bg-gray-500 rounded-full flex items-center justify-center">
+                <button type="button" onClick={() => setKeyword('')} className="mr-3 w-5 h-5 bg-gray-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-white text-xs font-bold">✕</span>
                 </button>
               )}
             </div>
-            {/* 件数表示 */}
-            <p className="text-center text-xs font-medium mt-2 text-gray-300">
-              {previewCount === 0 ? '該当なし' : `${previewCount.toLocaleString()}問`}
-            </p>
+            {/* 検索ボタン（横幅いっぱい） */}
+            <button
+              type="submit"
+              className="w-full mt-4 py-3.5 bg-blue-500 text-white font-medium rounded-2xl hover:bg-blue-600 active:scale-[0.98] transition-all"
+            >
+              検索
+            </button>
           </div>
 
           {/* 並び順 - セグメントコントロール */}
@@ -1117,7 +1117,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setSelectedYears([])}
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   selectedYears.length === 0
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-white text-gray-900'
                     : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
@@ -1128,7 +1128,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setSelectedYears(years.slice(0, 5))}
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   selectedYears.length === 5 && selectedYears[0] === maxYear && !hisshuOnly
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-white text-gray-900'
                     : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
@@ -1139,7 +1139,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setHisshuOnly(!hisshuOnly)}
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   hisshuOnly
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-white text-gray-900'
                     : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
@@ -1159,7 +1159,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                     onClick={() => toggleYear(year)}
                     className={`py-2 text-xs rounded-full font-medium transition-all ${
                       isSelected
-                        ? 'bg-blue-500 text-white'
+                        ? 'bg-white text-gray-900'
                         : 'bg-transparent text-gray-400 border border-gray-500'
                     }`}
                   >
