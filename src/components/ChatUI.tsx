@@ -478,7 +478,6 @@ export function ChatUI() {
             }
             loadQuestions(keyword, years, sortOrder, hisshuOnly);
           }}
-          onRefresh={() => loadQuestions(activeFilter, activeYears, activeSortOrder, activeHisshuOnly)}
           onClose={() => setShowFilterModal(false)}
         />
       )}
@@ -996,11 +995,10 @@ interface FilterModalProps {
   currentSortOrder: SortOrder;
   currentHisshuOnly: boolean;
   onSubmit: (keyword: string, years: number[], sortOrder: SortOrder, hisshuOnly: boolean) => void;
-  onRefresh: () => void;
   onClose: () => void;
 }
 
-function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHisshuOnly, onSubmit, onRefresh, onClose }: FilterModalProps) {
+function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHisshuOnly, onSubmit, onClose }: FilterModalProps) {
   const [keyword, setKeyword] = useState(currentKeyword);
   const [selectedYears, setSelectedYears] = useState<number[]>(currentYears);
   const [sortOrder, setSortOrder] = useState<SortOrder>(currentSortOrder);
