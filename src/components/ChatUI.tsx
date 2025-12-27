@@ -1045,22 +1045,25 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
         <form onSubmit={handleSubmit}>
           {/* 検索入力 */}
           <div className="mb-4">
-            <div className="relative flex items-center bg-white/10 rounded-2xl focus-within:ring-2 focus-within:ring-white/30">
+            <div className="relative flex items-center bg-white rounded-2xl">
+              <svg className="w-5 h-5 text-gray-400 ml-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
               <input
                 ref={inputRef}
                 type="text"
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
-                placeholder="例: インプラント 表面処理 / 112B48"
-                className="flex-1 pl-4 pr-2 py-4 bg-transparent text-base text-white placeholder-gray-400 focus:outline-none"
+                placeholder="キーワードで検索"
+                className="flex-1 pl-3 pr-2 py-4 bg-transparent text-base text-gray-900 placeholder-gray-400 focus:outline-none"
               />
               {/* 件数表示（入力欄内の右側） */}
-              <span className={`text-xs font-medium px-3 ${previewCount === 0 ? 'text-red-400' : 'text-gray-400'}`}>
+              <span className={`text-xs font-medium px-3 ${previewCount === 0 ? 'text-red-500' : 'text-gray-500'}`}>
                 {previewCount === 0 ? '該当なし' : `${previewCount.toLocaleString()}問`}
               </span>
               {keyword && (
-                <button type="button" onClick={() => setKeyword('')} className="mr-3 w-5 h-5 bg-gray-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-xs font-bold">✕</span>
+                <button type="button" onClick={() => setKeyword('')} className="mr-3 w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-gray-600 text-xs font-bold">✕</span>
                 </button>
               )}
             </div>
@@ -1115,7 +1118,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setSelectedYears([])}
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   selectedYears.length === 0
-                    ? 'bg-white text-gray-900'
+                    ? 'bg-white/20 text-white'
                     : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
@@ -1126,7 +1129,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setSelectedYears(years.slice(0, 5))}
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   selectedYears.length === 5 && selectedYears[0] === maxYear && !hisshuOnly
-                    ? 'bg-white text-gray-900'
+                    ? 'bg-white/20 text-white'
                     : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
@@ -1137,7 +1140,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setHisshuOnly(!hisshuOnly)}
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   hisshuOnly
-                    ? 'bg-white text-gray-900'
+                    ? 'bg-white/20 text-white'
                     : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
@@ -1157,7 +1160,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                     onClick={() => toggleYear(year)}
                     className={`py-2 text-xs rounded-full font-medium transition-all ${
                       isSelected
-                        ? 'bg-white text-gray-900'
+                        ? 'bg-white/20 text-white'
                         : 'bg-transparent text-gray-400 border border-gray-500'
                     }`}
                   >
