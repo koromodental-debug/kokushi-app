@@ -1031,10 +1031,10 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/10 backdrop-blur-[3px]" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-black/60" onClick={onClose}>
       <div
-        className="w-full max-w-md rounded-3xl p-6 animate-scale-up backdrop-blur-sm border border-white/30 relative"
-        style={{ backgroundColor: 'rgba(245, 245, 250, 0.8)' }}
+        className="w-full max-w-md rounded-3xl p-6 animate-scale-up shadow-2xl relative"
+        style={{ backgroundColor: 'rgba(30, 30, 35, 0.95)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* リフレッシュボタン（右上） */}
@@ -1044,7 +1044,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
             onRefresh();
             onClose();
           }}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 active:scale-90 transition-all"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white active:scale-90 transition-all"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -1061,26 +1061,26 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
                 placeholder="例: インプラント 表面処理 / 112B48"
-                className="w-full pl-4 pr-12 py-4 bg-white rounded-2xl text-base placeholder-gray-400 focus:outline-none shadow-sm"
+                className="w-full pl-4 pr-12 py-4 bg-white/10 rounded-2xl text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30"
               />
               {keyword && (
-                <button type="button" onClick={() => setKeyword('')} className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
+                <button type="button" onClick={() => setKeyword('')} className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 bg-gray-500 rounded-full flex items-center justify-center">
                   <span className="text-white text-xs font-bold">✕</span>
                 </button>
               )}
             </div>
             {/* 件数表示 */}
-            <p className="text-center text-xs font-medium mt-2 text-gray-400">
+            <p className="text-center text-xs font-medium mt-2 text-gray-300">
               {previewCount === 0 ? '該当なし' : `${previewCount.toLocaleString()}問`}
             </p>
           </div>
 
           {/* 並び順 - セグメントコントロール */}
           <div className="mb-4">
-            <div className="bg-gray-300/40 p-1 rounded-full flex relative">
+            <div className="bg-white/10 p-1 rounded-full flex relative">
               {/* スライドするインジケーター */}
               <div
-                className="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-white rounded-full shadow-sm transition-transform duration-300 ease-out"
+                className="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-white/20 rounded-full transition-transform duration-300 ease-out"
                 style={{ transform: sortOrder === 'newest' ? 'translateX(0)' : 'translateX(100%)' }}
               />
               <button
@@ -1088,8 +1088,8 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setSortOrder('newest')}
                 className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 relative z-10 ${
                   sortOrder === 'newest'
-                    ? 'text-gray-900'
-                    : 'text-gray-500'
+                    ? 'text-white'
+                    : 'text-gray-400'
                 }`}
               >
                 新しい順
@@ -1099,8 +1099,8 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 onClick={() => setSortOrder('random')}
                 className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 relative z-10 ${
                   sortOrder === 'random'
-                    ? 'text-gray-900'
-                    : 'text-gray-500'
+                    ? 'text-white'
+                    : 'text-gray-400'
                 }`}
               >
                 ランダム
@@ -1118,7 +1118,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   selectedYears.length === 0
                     ? 'bg-blue-500 text-white'
-                    : 'bg-transparent text-gray-500 border border-gray-300'
+                    : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
                 全範囲
@@ -1129,7 +1129,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   selectedYears.length === 5 && selectedYears[0] === maxYear && !hisshuOnly
                     ? 'bg-blue-500 text-white'
-                    : 'bg-transparent text-gray-500 border border-gray-300'
+                    : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
                 直近5回
@@ -1140,7 +1140,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                 className={`px-4 py-2 text-xs rounded-full font-medium transition-all ${
                   hisshuOnly
                     ? 'bg-blue-500 text-white'
-                    : 'bg-transparent text-gray-500 border border-gray-300'
+                    : 'bg-transparent text-gray-400 border border-gray-500'
                 }`}
               >
                 必修
@@ -1160,7 +1160,7 @@ function FilterModal({ currentKeyword, currentYears, currentSortOrder, currentHi
                     className={`py-2 text-xs rounded-full font-medium transition-all ${
                       isSelected
                         ? 'bg-blue-500 text-white'
-                        : 'bg-transparent text-gray-500 border border-gray-300'
+                        : 'bg-transparent text-gray-400 border border-gray-500'
                     }`}
                   >
                     {year}
